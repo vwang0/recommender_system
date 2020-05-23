@@ -4,7 +4,7 @@ from pyspark.mllib.recommendation import ALS, Rating
 
 def loadMovieNames():
     movieNames = {}
-    with open("ml-100k/u.ITEM", encoding='ascii', errors="ignore") as f:
+    with open("u.item", encoding='ascii', errors="ignore") as f:
         for line in f:
             fields = line.split('|')
             movieNames[int(fields[0])] = fields[1]
