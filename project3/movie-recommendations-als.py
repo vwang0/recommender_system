@@ -17,7 +17,7 @@ sc.setCheckpointDir('checkpoint')
 print("\nLoading movie names...")
 nameDict = loadMovieNames()
 
-data = sc.textFile("/u.data")
+data = sc.textFile("u.data")
 
 ratings = data.map(lambda l: l.split()).map(lambda l: Rating(int(l[0]), int(l[1]), float(l[2]))).cache()
 
