@@ -1,5 +1,5 @@
 """
-load and explore movieLens data set
+Load and explore movieLens data set
 """
 import os
 import csv

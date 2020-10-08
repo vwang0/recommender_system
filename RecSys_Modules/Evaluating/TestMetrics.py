@@ -1,5 +1,5 @@
 """
-test out the metrics in RecommenderMetrics.py
+Test out the metrics in RecommenderMetrics.py
 """
 from MovieLens import MovieLens
 from surprise import SVD, KNNBaseline
