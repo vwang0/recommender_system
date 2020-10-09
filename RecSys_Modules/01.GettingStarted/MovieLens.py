@@ -1,10 +1,7 @@
 """
 Load and explore movieLens data set
 """
-import os
-import csv
-import sys
-import re
+import os, csv, sys, re
 from surprise import Dataset, Reader
 from collections import defaultdict
 import numpy as np

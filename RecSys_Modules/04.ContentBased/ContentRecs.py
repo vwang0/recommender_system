@@ -1,9 +1,12 @@
+# -*- coding: utf-8 -*-
 """
-Compare SVD algorithm and random recommendation
+Compare KNN algorithm and random recommendation
 """
 from MovieLens import MovieLens
-from surprise import SVD, NormalPredictor
+from ContentKNNAlgorithm import ContentKNNAlgorithm
 from Evaluator import Evaluator
+from surprise import NormalPredictor
+
 import random
 import numpy as np
 
@@ -13,23 +16,26 @@ def LoadMovieLensData():
     data = ml.loadMovieLensLatestSmall()
     print("\nComputing movie popularity ranks so we can measure novelty later...")
     rankings = ml.getPopularityRanks()
-    return (data, rankings)
+    return (ml, data, rankings)
 
 np.random.seed(0)
 random.seed(0)
 
 # Load up common data set for the recommender algorithms
-(evaluationData, rankings) = LoadMovieLensData()
+(ml, evaluationData, rankings) = LoadMovieLensData()
 
 # Construct an Evaluator to, you know, evaluate them
 evaluator = Evaluator(evaluationData, rankings)
 
-# Throw in an SVD recommender
-SVDAlgorithm = SVD(random_state=10)
-evaluator.AddAlgorithm(SVDAlgorithm, "SVD")
+contentKNN = ContentKNNAlgorithm()
+evaluator.AddAlgorithm(contentKNN, "ContentKNN")
 
 # Just make random recommendations
 Random = NormalPredictor()
 evaluator.AddAlgorithm(Random, "Random")
-evaluator.Evaluate(True)
+
+evaluator.Evaluate(False)
+
+evaluator.SampleTopNRecs(ml)
+
 

@@ -1,18 +1,5 @@
-"""
-Recommender System Metrics
-https://surprise.readthedocs.io/en/stable/accuracy.html
-MAE, MSE, RMSE, 
-Top N List, 
-Hit Rate
-Cumulative Hit Rate
-Rating Hit Rate,
-Average Reciprocal Hit Rank,
-Average Reciprocal Hit Rank,
-User Coverage,
-Diversity,
-Novelty,
-"""
 import itertools
+
 from surprise import accuracy
 from collections import defaultdict
 
@@ -20,27 +7,28 @@ class RecommenderMetrics:
 
     def MAE(predictions):
         return accuracy.mae(predictions, verbose=False)
-    
-    def MSE(predictions):
-        return accuracy.mse(predictions, verbose=False)
 
     def RMSE(predictions):
         return accuracy.rmse(predictions, verbose=False)
 
     def GetTopN(predictions, n=10, minimumRating=4.0):
         topN = defaultdict(list)
+
+
         for userID, movieID, actualRating, estimatedRating, _ in predictions:
             if (estimatedRating >= minimumRating):
                 topN[int(userID)].append((int(movieID), estimatedRating))
+
         for userID, ratings in topN.items():
             ratings.sort(key=lambda x: x[1], reverse=True)
             topN[int(userID)] = ratings[:n]
-        return topN
 
+        return topN
 
     def HitRate(topNPredicted, leftOutPredictions):
         hits = 0
         total = 0
+
         # For each left-out rating
         for leftOut in leftOutPredictions:
             userID = leftOut[0]
@@ -51,16 +39,18 @@ class RecommenderMetrics:
                 if (int(leftOutMovieID) == int(movieID)):
                     hit = True
                     break
-            if hit :
+            if (hit) :
                 hits += 1
+
             total += 1
+
         # Compute overall precision
         return hits/total
-
 
     def CumulativeHitRate(topNPredicted, leftOutPredictions, ratingCutoff=0):
         hits = 0
         total = 0
+
         # For each left-out rating
         for userID, leftOutMovieID, actualRating, estimatedRating, _ in leftOutPredictions:
             # Only look at ability to recommend things the users actually liked...
@@ -71,16 +61,18 @@ class RecommenderMetrics:
                     if (int(leftOutMovieID) == movieID):
                         hit = True
                         break
-                if hit:
+                if (hit) :
                     hits += 1
+
                 total += 1
+
         # Compute overall precision
         return hits/total
-
 
     def RatingHitRate(topNPredicted, leftOutPredictions):
         hits = defaultdict(float)
         total = defaultdict(float)
+
         # For each left-out rating
         for userID, leftOutMovieID, actualRating, estimatedRating, _ in leftOutPredictions:
             # Is it in the predicted top N for this user?
@@ -89,13 +81,14 @@ class RecommenderMetrics:
                 if (int(leftOutMovieID) == movieID):
                     hit = True
                     break
-            if hit:
+            if (hit) :
                 hits[actualRating] += 1
+
             total[actualRating] += 1
+
         # Compute overall precision
         for rating in sorted(hits.keys()):
             print (rating, hits[rating] / total[rating])
-
 
     def AverageReciprocalHitRank(topNPredicted, leftOutPredictions):
         summation = 0
@@ -110,11 +103,12 @@ class RecommenderMetrics:
                 if (int(leftOutMovieID) == movieID):
                     hitRank = rank
                     break
-            if hitRank > 0:
+            if (hitRank > 0) :
                 summation += 1.0 / hitRank
-            total += 1
-        return summation / total
 
+            total += 1
+
+        return summation / total
 
     # What percentage of users have at least one "good" recommendation
     def UserCoverage(topNPredicted, numUsers, ratingThreshold=0):
@@ -125,10 +119,10 @@ class RecommenderMetrics:
                 if (predictedRating >= ratingThreshold):
                     hit = True
                     break
-            if hit:
+            if (hit):
                 hits += 1
-        return hits / numUsers
 
+        return hits / numUsers
 
     def Diversity(topNPredicted, simsAlgo):
         n = 0
@@ -144,9 +138,9 @@ class RecommenderMetrics:
                 similarity = simsMatrix[innerID1][innerID2]
                 total += similarity
                 n += 1
+
         S = total / n
         return (1-S)
-
 
     def Novelty(topNPredicted, rankings):
         n = 0

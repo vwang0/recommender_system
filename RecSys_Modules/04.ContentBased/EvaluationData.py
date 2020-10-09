@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 """
-Data Explorartory Analysis
+Data Evaluation
 """
 from surprise.model_selection import train_test_split, LeaveOneOut
 from surprise import KNNBaseline

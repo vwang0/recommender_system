@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 """
-Evaluate data
+Generate performance Metrics
 """
 from EvaluationData import EvaluationData
 from EvaluatedAlgorithm import EvaluatedAlgorithm

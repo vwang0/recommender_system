@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 """
-Algorithm for evaluating data
+Evaluation Algorithm
 """
 from RecommenderMetrics import RecommenderMetrics
 from EvaluationData import EvaluationData
