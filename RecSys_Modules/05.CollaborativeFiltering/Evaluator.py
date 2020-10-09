@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Generate performance Metrics
+
 """
 from EvaluationData import EvaluationData
 from EvaluatedAlgorithm import EvaluatedAlgorithm
@@ -72,7 +72,6 @@ class Evaluator:
                 recommendations.append((intMovieID, estimatedRating))
             
             recommendations.sort(key=lambda x: x[1], reverse=True)
-            # recommendations.sort(key=lambda x: (x[2], -x[1]))
             
             for ratings in recommendations[:10]:
                 print(ml.getMovieName(ratings[0]), ratings[1])
