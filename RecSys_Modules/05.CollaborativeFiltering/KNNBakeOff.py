@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
 """
-
+Implement KNN Algorithm
 """
 from MovieLens import MovieLens
 from surprise import KNNBasic

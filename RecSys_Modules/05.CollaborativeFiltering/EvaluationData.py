@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
 """
-
+Data Evaluation
 """
 from surprise.model_selection import train_test_split
 from surprise.model_selection import LeaveOneOut

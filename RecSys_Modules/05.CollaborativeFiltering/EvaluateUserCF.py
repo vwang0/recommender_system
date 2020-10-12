@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
 """
-
+ Collaborative Filtering Algorithm Evaluation
 """
 
 from MovieLens import MovieLens

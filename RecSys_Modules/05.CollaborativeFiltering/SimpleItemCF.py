@@ -1,5 +1,5 @@
 """
-
+Simple Item-based Collaborative Filtering Algorithm
 """
 from MovieLens import MovieLens
 from surprise import KNNBasic
